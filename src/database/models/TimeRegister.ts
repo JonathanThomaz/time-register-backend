@@ -6,11 +6,11 @@ export class TimeRegister {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('date')
-  startDateTime: Date;
+  @Column('text')
+  startDateTime: string;
 
-  @Column('date')
-  endDateTime: Date | null;
+  @Column('text', { default: null })
+  endDateTime: string | null;
 
   @ManyToOne(() => Employee, (employee) => employee.timeRegister)
   employee: Employee;

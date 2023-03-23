@@ -1,17 +1,10 @@
-import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { TimeRegister } from './TimeRegister';
+import { Employee } from '../models/Employee';
+import { DataSourceConnection } from '../connection';
 
-@Entity()
-export class Employee {
-  @PrimaryGeneratedColumn()
-  id: number;
+export default {
+  findByCode: async (code: string) => {
+    const employeeRegisterRepository = DataSourceConnection.getRepository(Employee);
 
-  @PrimaryColumn('text')
-  code: string;
-
-  @Column('text')
-  name: string;
-
-  @OneToMany(() => TimeRegister, (timeRegister) => timeRegister.employee)
-  timeRegister: TimeRegister[];
-}
+    return await employeeRegisterRepository.findOne({ where: [{ code: code }] });
+  },
+};

@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
-import { Employee } from './entities/Employee';
-import { TimeRegister } from './entities/TimeRegister';
+import { Employee } from './models/Employee';
+import { TimeRegister } from './models/TimeRegister';
+import seed from './seed';
 
 export const DataSourceConnection = new DataSource({
   type: 'postgres',
@@ -17,6 +18,7 @@ export const DataSourceConnection = new DataSource({
 
 DataSourceConnection.initialize()
   .then(() => {
-    console.log('database is working');
+    console.info('database is working');
+    seed();
   })
-  .catch((error) => console.log('database error connection: ', error));
+  .catch((error) => console.error('database error connection: ', error));
